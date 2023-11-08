@@ -5,6 +5,14 @@ class ScheduleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Scheduling Widget');
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pet Health'),
+      ),
+      body: const Center(
+        child: Text('Schedule Widget'),
+      ),
+      backgroundColor: Colors.blueGrey.shade200,
+    );
   }
 }

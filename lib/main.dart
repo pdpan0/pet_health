@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:pet_health/constants/routes.dart';
 import 'package:pet_health/screens/landing.dart';
 import 'package:pet_health/screens/schedule.dart';
 
@@ -18,8 +20,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        "/": (context) => const LandingWidget(),
-        "/schedule": (context) => const ScheduleWidget()
+        landing: (context) => const LandingWidget(),
+        schedule: (context) => const ScheduleWidget()
       },
     );
   }
