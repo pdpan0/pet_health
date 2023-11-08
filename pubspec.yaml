@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  i18n_extension: ^9.0.2
 
 dev_dependencies:
   flutter_test:
@@ -22,3 +23,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/pet-avatar.png
+    - assets/brazil-flag.png
+    - assets/united-states-of-america.png
