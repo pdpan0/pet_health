@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:pet_health/constants/routes.dart';
-import 'package:pet_health/screens/landing.dart';
+import 'package:pet_health/screens/landing/landing.dart';
 import 'package:pet_health/screens/schedule.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      I18n(initialLocale: const Locale('en', 'US'), child: const MyApp())
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('pt', 'BR')
+      ],
+      title: 'Pet Health',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
