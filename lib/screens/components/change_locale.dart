@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
-import 'package:pet_health/constants/assets.dart';
+import 'package:pet_health/constants/supported_locales.dart';
+import 'package:pet_health/models/supported_locales.dart';
 import 'package:pet_health/screens/components/circular_button.dart';
 
 class ChangeLocaleComponent extends StatefulWidget {
@@ -11,13 +12,7 @@ class ChangeLocaleComponent extends StatefulWidget {
 }
 
 class _ChangeLocaleComponentState extends State<ChangeLocaleComponent> {
-  // todo: dinâmico
-  final _locales = const [
-    { 'locale': Locale('en', 'US'), 'icon': usa_flag },
-    { 'locale': Locale('pt', 'BR'), 'icon': bra_flag },
-  ];
-
-  Map<String, Object>? _currentLocale;
+  late SupportedLocales _currentLocale;
 
   @override
   void initState() {
@@ -30,17 +25,20 @@ class _ChangeLocaleComponentState extends State<ChangeLocaleComponent> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: CircularButton(
-          assetName: _currentLocale!['icon'] as String,
-          onTap: () {
-            final locale = _locales.firstWhere((element) => element != _currentLocale)['locale'] as Locale;
-            _setLocale(locale);
-          }
+          backgroundImage: AssetImage(_currentLocale.flag),
+          onTap: _changeLocale
       ),
     );
   }
 
-  Map<String, Object>? _findLocale(Locale locale) {
-    return _locales.firstWhere((element) => element['locale'] == I18n.locale);
+  SupportedLocales _findLocale(Locale locale) {
+    return supportedLocales.firstWhere((element) => element.locale == locale);
+  }
+
+  void _changeLocale() {
+    _setLocale(
+        supportedLocales.firstWhere((element) => element.locale != _currentLocale.locale).locale // todo: each-position of list
+    );
   }
 
   void _setLocale(Locale locale) {

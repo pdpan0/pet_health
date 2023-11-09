@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:pet_health/constants/routes.dart';
+import 'package:pet_health/constants/supported_locales.dart';
 import 'package:pet_health/screens/landing/landing.dart';
 import 'package:pet_health/screens/schedule.dart';
 
@@ -17,10 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('pt', 'BR')
-      ],
+      supportedLocales: supportedLocales.map((e) => e.locale),
       title: 'Pet Health',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
