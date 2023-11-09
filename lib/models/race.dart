@@ -1,0 +1,1 @@
+enum Race { cat, dog }
