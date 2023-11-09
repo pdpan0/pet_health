@@ -1,2 +1,2 @@
-const landing = '/';
+const landing = '/landing';
 const schedule = '/schedule';

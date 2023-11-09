@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 import 'package:pet_health/constants/supported_locales.dart';
 import 'package:pet_health/models/supported_locales.dart';
-import 'package:pet_health/screens/components/circular_button.dart';
+import 'package:pet_health/pages/components/circular_button.dart';
 
 class ChangeLocaleComponent extends StatefulWidget {
   const ChangeLocaleComponent({super.key});
