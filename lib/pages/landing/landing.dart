@@ -13,36 +13,108 @@ class LandingWidget extends StatefulWidget {
 }
 
 class _LandingWidgetState extends State<LandingWidget> {
+  final List<String> mock = <String>[
+    'O aniversário do seu pet está chegando!',
+    'O aniversário do seu pet está chegando!',
+    'O aniversário do seu pet está chegando!',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return _getBody();
+    return Scaffold(
+      backgroundColor: primary,
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60), child: _getAppBar()),
+      body: _getBody(),
+    );
   }
 
   Widget _getAppBar() {
     return AppBar(
       elevation: 0,
-      actions: const [
-        ChangeLocaleComponent()
-      ],
+      backgroundColor: primary,
+      actions: const [ChangeLocaleComponent()],
     );
   }
 
   Widget _getBody() {
     final size = MediaQuery.of(context).size;
+
     return Column(
-        children: [
-          _getAppBar(),
-          Container(
+      children: [
+        Container(
+          width: size.width,
+          height: size.height * 0.40,
+          decoration: const BoxDecoration(color: primary),
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: size.width,
+                height: 250,
+                padding: const EdgeInsets.all(15.0),
+                decoration: const BoxDecoration(color: primary),
+                child: PetAvatar(borderRadius: 100, radius: 95),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Container(
             width: double.infinity,
-            height: size.height * 0.25,
-            decoration: const BoxDecoration(color: primary),
-            child: const Center(
-                child: PetAvatar(
-                  petInitials: 'AB',
-                )),
-          )
-        ]
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              color: white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25),
+                topRight: Radius.circular(25),
+              ),
+            ),
+            child: _getNotificationSection(),
+          ),
+        ),
+      ],
     );
+  }
+
+  Widget _getNotificationSection() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 25, bottom: 40, left: 15, right: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            notifications.i18n,
+            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 18),
+          Expanded(
+            child: ListView(
+                shrinkWrap: true,
+                children: mock.map((e) => _getNotificationItem(e)).toList()
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _getNotificationItem(String notification) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: grey.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 10)
+          ]),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Text(notification),
+        )));
   }
 }

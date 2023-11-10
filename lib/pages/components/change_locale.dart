@@ -22,12 +22,9 @@ class _ChangeLocaleComponentState extends State<ChangeLocaleComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: CircularButton(
-          backgroundImage: AssetImage(_currentLocale.flag),
-          onTap: _changeLocale
-      ),
+    return CircularButton(
+        backgroundImage: AssetImage(_currentLocale.flag),
+        onTap: _changeLocale
     );
   }
 
