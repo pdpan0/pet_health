@@ -17,21 +17,17 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _getTabs();
-  }
-
-  Widget _getTabs() {
     return AnimatedBottomNavigationBar(
-        icons: items.map((e) => e.icon).toList(),
-        activeColor: primary,
-        splashColor: secondary,
-        activeIndex: activeIndex,
-        inactiveColor: black.withOpacity(0.5),
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.softEdge,
-        leftCornerRadius: 10,
-        rightCornerRadius: 10,
-        onTap: onTap
+      icons: items.map((e) => e.icon).toList(),
+      activeColor: primary,
+      splashColor: secondary,
+      activeIndex: activeIndex,
+      inactiveColor: black.withOpacity(0.5),
+      gapLocation: GapLocation.center,
+      notchSmoothness: NotchSmoothness.softEdge,
+      leftCornerRadius: 10,
+      rightCornerRadius: 10,
+      onTap: onTap
     );
   }
 }

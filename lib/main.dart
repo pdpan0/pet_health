@@ -12,7 +12,7 @@ import 'package:pet_health/pages/schedule.dart';
 void main() {
   runApp(
       I18n(
-          initialLocale: const Locale('en', 'US'),
+          initialLocale: const Locale('en', 'US'), //todo: remover
           child: const PetHealthApp()
       )
   );
