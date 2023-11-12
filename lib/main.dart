@@ -6,7 +6,7 @@ import 'package:pet_health/constants/supported_locales.dart';
 import 'package:pet_health/models/components/bottom_bar_item.dart';
 import 'package:pet_health/pages/components/bottom_bar.dart';
 import 'package:pet_health/pages/landing/landing.dart';
-import 'package:pet_health/pages/pet_form.dart';
+import 'package:pet_health/pages/pet_form/pet_form.dart';
 import 'package:pet_health/pages/schedule.dart';
 
 void main() {
