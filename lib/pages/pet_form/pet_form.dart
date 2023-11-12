@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pet_health/constants/colors.dart';
+import 'package:pet_health/floor/dao/pet_dao.dart';
+import 'package:pet_health/floor/database/app_database.dart';
+import 'package:pet_health/floor/services/pet_service.dart';
 import 'package:pet_health/models/pet.dart';
 import 'package:pet_health/models/race.dart';
 import 'package:pet_health/pages/pet_form/pet_form.i18n.dart';
@@ -14,17 +17,36 @@ class PetFormWidget extends StatefulWidget {
 class _PetFormWidgetState extends State<PetFormWidget> {
   final _formKey = GlobalKey<FormState>();
 
+  // Name Input
   final _nameController = TextEditingController();
 
+  // Race Input
   Race? _selectedRace = Race.dog;
-
   void _changeRace(Race? race) {
     setState(() {
       _selectedRace = race;
     });
   }
 
-  void _savePet(Pet pet) {}
+  // Validators
+  String? _nameValidator(value) => value == null || value.isEmpty ? nameValidatorError.i18n : null;
+  String? _raceValidator(value) => value == null ? raceValidatorError.i18n : null;
+
+  PetDAO? petDAO;
+
+  Future<int> _savePet(Pet pet) async{
+    return await petDAO!.insertPet(pet);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeDatabase();
+  }
+
+  void _initializeDatabase() async{
+    petDAO = await PetService.getDAO();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +59,8 @@ class _PetFormWidgetState extends State<PetFormWidget> {
               TextFormField(
                 decoration: InputDecoration(hintText: namePlaceholder.i18n),
                 controller: _nameController,
-                validator: (value) =>
-                    value == null || value.isEmpty ? nameValidatorError.i18n : null,
-              ),
+                validator: _nameValidator
+            ),
               const SizedBox(height: 18),
               DropdownButtonFormField(
                 value: _selectedRace,
@@ -54,13 +75,18 @@ class _PetFormWidgetState extends State<PetFormWidget> {
                 ),
                 isExpanded: true,
                 onChanged: _changeRace,
+                validator: _raceValidator,
               ),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: ElevatedButton(
                   child: Text(saveButton.i18n),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                  onPressed: () async{
+                    if (_formKey.currentState!.validate()) {
+                      final Pet pet = Pet(_nameController.text, _selectedRace!);
+
+                      await _savePet(pet);
+                    }
                   },
                 ),
               )

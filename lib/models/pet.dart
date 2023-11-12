@@ -1,9 +1,17 @@
+import 'package:floor/floor.dart';
 import 'package:pet_health/models/race.dart';
 
+@entity
 class Pet {
-  final int id;
+  @primaryKey
+  int? id;
   final String name;
   final Race race;
 
-  Pet(this.id, this.name, this.race);
+  Pet(this.name, this.race);
+
+  @override
+  String toString() {
+    return 'Pet{id: $id, name: $name, race: $race}';
+  }
 }

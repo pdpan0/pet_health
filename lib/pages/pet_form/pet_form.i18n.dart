@@ -3,6 +3,7 @@ import 'package:i18n_extension/i18n_extension.dart';
 const namePlaceholder = 'nameHintText';
 const nameValidatorError = 'nameValidatorError';
 const racePlaceholder = 'racePlaceholder';
+const raceValidatorError = 'raceValidatorError';
 const saveButton = 'saveButton';
 
 extension Localization on String {
@@ -19,6 +20,10 @@ extension Localization on String {
     racePlaceholder: {
       'en_us': 'Race',
       'pt_br': 'Raça'
+    },
+    raceValidatorError: {
+      'en_us': 'Race cannot be invalid',
+      'pt_br': 'Raça não pode ser inválida'
     },
     saveButton: {
       'en_us': 'Save',
