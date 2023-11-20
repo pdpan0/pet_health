@@ -1,0 +1,4 @@
+enum Breed {
+  cat,
+  dog,
+}
