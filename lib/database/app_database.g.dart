@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Pet` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `Pet` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `breed` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -107,13 +107,21 @@ class _$PetDao extends PetDao {
         _petInsertionAdapter = InsertionAdapter(
             database,
             'Pet',
-            (Pet item) => <String, Object?>{'id': item.id, 'name': item.name},
+            (Pet item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'breed': item.breed
+                },
             changeListener),
         _petDeletionAdapter = DeletionAdapter(
             database,
             'Pet',
             ['id'],
-            (Pet item) => <String, Object?>{'id': item.id, 'name': item.name},
+            (Pet item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'breed': item.breed
+                },
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -129,15 +137,15 @@ class _$PetDao extends PetDao {
   @override
   Future<List<Pet>> findAllPets() async {
     return _queryAdapter.queryList('SELECT * FROM Pet',
-        mapper: (Map<String, Object?> row) =>
-            Pet(row['id'] as int?, row['name'] as String));
+        mapper: (Map<String, Object?> row) => Pet(
+            row['id'] as int?, row['name'] as String, row['breed'] as String));
   }
 
   @override
   Stream<Pet?> findPetById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM Pet WHERE id = ?1',
-        mapper: (Map<String, Object?> row) =>
-            Pet(row['id'] as int?, row['name'] as String),
+        mapper: (Map<String, Object?> row) => Pet(
+            row['id'] as int?, row['name'] as String, row['breed'] as String),
         arguments: [id],
         queryableName: 'Pet',
         isView: false);

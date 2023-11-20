@@ -3,6 +3,7 @@ import 'package:pet_health/models/pet.dart';
 
 import '../../../dao/pet_dao.dart';
 import '../../../services/pet.service.dart';
+import '../create/create.i18n.dart';
 
 class PetsListWidget extends StatefulWidget {
   const PetsListWidget({super.key});
@@ -36,11 +37,17 @@ class _PetsListWidgetState extends State<PetsListWidget> {
     }
   }
 
-  _deletePet(Pet pet) async {
+  _deletePet(Pet pet) {
     if (dao != null) {
-      await dao!.deletePet(pet);
+      dao!.deletePet(pet);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(_getSnackBar(Text(createWithSuccess.i18n)));
       _findAllPets();
     }
+  }
+
+  SnackBar _getSnackBar(Text message) {
+    return SnackBar(content: message);
   }
 
   @override

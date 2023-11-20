@@ -7,10 +7,12 @@ class Pet {
 
   final String name;
 
-  Pet(this.id, this.name);
+  final String breed;
+
+  Pet(this.id, this.name, this.breed);
 
   @override
   String toString() {
-    return 'Pet{id: $id, name: $name}';
+    return 'Pet{id: $id, name: $name}, breed: $breed}';
   }
 }

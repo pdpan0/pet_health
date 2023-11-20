@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pet_health/constants/colors.dart';
 import 'package:pet_health/models/pet.dart';
-import 'package:pet_health/models/breed.dart';
 
 import '../../../constants/routes.dart';
 import '../../../dao/pet_dao.dart';
 import '../../../services/pet.service.dart';
-import '../list/list.i18n.dart';
+import 'create.i18n.dart';
 
 class PetFormWidget extends StatefulWidget {
   const PetFormWidget({super.key});
@@ -23,12 +22,21 @@ class _PetFormWidgetState extends State<PetFormWidget> {
   final _nameController = TextEditingController();
 
   // Breed Input
-  Breed? _selectedBreed = Breed.dog;
-  void _changeBreed(Breed? breed) {
+  String _selectedBreed = 'Labrador Retriever';
+  void _changeBreed(breed) {
     setState(() {
       _selectedBreed = breed;
     });
   }
+
+  // List of dog breeds
+  List<String> dogBreeds = [
+    'Labrador Retriever',
+    'German Shepherd',
+    'Golden Retriever',
+    'Bulldog',
+    'Beagle',
+  ];
 
   // Validators
   String? _nameValidator(value) =>
@@ -48,7 +56,13 @@ class _PetFormWidgetState extends State<PetFormWidget> {
 
   _createPet(Pet pet) {
     dao?.insertPet(pet);
-    Navigator.of(context).pushNamed(petList);
+    ScaffoldMessenger.of(context)
+        .showSnackBar(_getSnackBar(Text(createWithSuccess.i18n)));
+    //Navigator.of(context);
+  }
+
+  SnackBar _getSnackBar(Text message) {
+    return SnackBar(content: message);
   }
 
   @override
@@ -67,8 +81,8 @@ class _PetFormWidgetState extends State<PetFormWidget> {
               const SizedBox(height: 18),
               DropdownButtonFormField(
                 value: _selectedBreed,
-                items: Breed.values
-                    .map((e) => DropdownMenuItem(value: e, child: Text(e.name)))
+                items: dogBreeds
+                    .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                     .toList(),
                 dropdownColor: primary.shade50,
                 decoration: InputDecoration(
@@ -86,7 +100,8 @@ class _PetFormWidgetState extends State<PetFormWidget> {
                   child: Text(saveButton.i18n),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      final newPet = Pet(null, _nameController.text);
+                      final newPet =
+                          Pet(null, _nameController.text, _selectedBreed);
                       _createPet(newPet);
                     }
                   },

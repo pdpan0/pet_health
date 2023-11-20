@@ -5,6 +5,8 @@ const nameValidatorError = 'nameValidatorError';
 const breedPlaceholder = 'breedPlaceholder';
 const breedValidatorError = 'breedValidatorError';
 const saveButton = 'saveButton';
+const createWithSuccess = 'createWithSuccess';
+const createWithError = 'createWithError';
 
 extension Localization on String {
   static const _t = Translations.from('en_us', {
@@ -18,7 +20,15 @@ extension Localization on String {
       'en_us': 'Breed cannot be invalid',
       'pt_br': 'Raça não pode ser inválida'
     },
-    saveButton: {'en_us': 'Save', 'pt_br': 'Salvar'}
+    saveButton: {'en_us': 'Save', 'pt_br': 'Salvar'},
+    createWithSuccess: {
+      'en_us': 'Pet was created with successfuly',
+      'pt_br': 'Pet criado com sucesso'
+    },
+    createWithError: {
+      'en_us': 'Occurs an error in register',
+      'pt_br': 'Ocorreu um erro no cadastro'
+    }
   });
 
   String get i18n => localize(this, _t);
