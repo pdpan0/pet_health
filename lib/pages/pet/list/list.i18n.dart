@@ -21,7 +21,7 @@ extension Localization on String {
     },
     saveButton: {'en_us': 'Save', 'pt_br': 'Salvar'},
     removeWithSuccess: {
-      'en_us': 'Pet was removed with successfuly',
+      'en_us': 'Pet was removed successfully',
       'pt_br': 'Pet removido com sucesso'
     },
   });

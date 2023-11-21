@@ -22,7 +22,7 @@ extension Localization on String {
     },
     saveButton: {'en_us': 'Save', 'pt_br': 'Salvar'},
     createWithSuccess: {
-      'en_us': 'Pet was created with successfuly',
+      'en_us': 'Pet was created successfuly',
       'pt_br': 'Pet criado com sucesso'
     },
     createWithError: {
