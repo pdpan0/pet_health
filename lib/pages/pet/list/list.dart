@@ -19,10 +19,10 @@ class _PetsListWidgetState extends State<PetsListWidget> {
   @override
   void initState() {
     super.initState();
-    _initializDatabase();
+    _initializeDatabase();
   }
 
-  _initializDatabase() async {
+  _initializeDatabase() async {
     dao = await PetService.getDAO();
 
     await _findAllPets();
