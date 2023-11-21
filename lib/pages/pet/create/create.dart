@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pet_health/constants/colors.dart';
 import 'package:pet_health/models/pet.dart';
 import 'package:pet_health/models/breed.dart';
+import 'package:pet_health/state/NavigationState.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/routes.dart';
 import '../../../dao/pet_dao.dart';
@@ -48,7 +50,8 @@ class _PetFormWidgetState extends State<PetFormWidget> {
 
   _createPet(Pet pet) {
     dao?.insertPet(pet);
-    Navigator.of(context).pushNamed(petList);
+    Provider.of<NavigationState>(context, listen: false).navigate(1);
+    // Navigator.of(context).pushNamed(petList);
   }
 
   @override
