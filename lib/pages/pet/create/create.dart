@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pet_health/constants/colors.dart';
 import 'package:pet_health/models/pet.dart';
 import 'package:pet_health/models/breed.dart';
+import 'package:pet_health/pages/pet/create/create.i18n.dart';
 import 'package:pet_health/state/NavigationState.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/routes.dart';
 import '../../../dao/pet_dao.dart';
 import '../../../services/pet.service.dart';
-import '../list/list.i18n.dart';
 
 class PetFormWidget extends StatefulWidget {
   const PetFormWidget({super.key});
@@ -48,10 +48,14 @@ class _PetFormWidgetState extends State<PetFormWidget> {
     dao = await PetService.getDAO();
   }
 
-  _createPet(Pet pet) {
-    dao?.insertPet(pet);
-    Provider.of<NavigationState>(context, listen: false).navigate(1);
-    // Navigator.of(context).pushNamed(petList);
+  Future<bool> _createPet(Pet pet) async {
+    try {
+      await dao?.insertPet(pet);
+      return true;
+    } catch(e) {
+      print('Ocorreu um erro: $e');
+      return false;
+    }
   }
 
   @override
@@ -90,7 +94,13 @@ class _PetFormWidgetState extends State<PetFormWidget> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final newPet = Pet(null, _nameController.text);
-                      _createPet(newPet);
+                      await _createPet(newPet);
+
+                      ScaffoldMessenger
+                          .of(context)
+                          .showSnackBar(_getSnackBar(Text(createWithSuccess.i18n)));
+
+                      Provider.of<NavigationState>(context, listen: false).navigate(1);
                     }
                   },
                 ),
@@ -99,4 +109,11 @@ class _PetFormWidgetState extends State<PetFormWidget> {
           ),
         ));
   }
+
+  SnackBar _getSnackBar(Text message) {
+    return SnackBar(
+      content: message
+    );
+  }
+
 }
