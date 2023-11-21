@@ -21,9 +21,9 @@ class PetHealthApp extends StatefulWidget {
 
 class _PetHealthAppState extends State<PetHealthApp> {
   static final List<Widget> _pages = <Widget>[
-    const LandingWidget(),
-    const PetsListWidget(),
-    const PetFormWidget(),
+    const LandingWidget(), // 0
+    const PetsListWidget(), // 1
+    const PetFormWidget(), // 2
   ];
 
   final _pets = <BottomBarItem>[
