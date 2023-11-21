@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pet_health/constants/colors.dart';
 import 'package:pet_health/models/pet.dart';
+import 'package:pet_health/pages/home/home.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/routes.dart';
 import '../../../dao/pet_dao.dart';
 import '../../../services/pet.service.dart';
+import '../../../state/navigation.state.dart';
 import 'create.i18n.dart';
 
 class PetFormWidget extends StatefulWidget {
@@ -16,6 +19,8 @@ class PetFormWidget extends StatefulWidget {
 
 class _PetFormWidgetState extends State<PetFormWidget> {
   PetDao? dao;
+  late PetHealthApp home;
+
   final _formKey = GlobalKey<FormState>();
 
   // Name Input
@@ -54,11 +59,12 @@ class _PetFormWidgetState extends State<PetFormWidget> {
     dao = await PetService.getDAO();
   }
 
-  _createPet(Pet pet) {
+  _createPet(Pet pet, BuildContext context) {
     dao?.insertPet(pet);
     ScaffoldMessenger.of(context)
         .showSnackBar(_getSnackBar(Text(createWithSuccess.i18n)));
-    //Navigator.of(context);
+    Provider.of<NavigationState>(context, listen: false).navigate(1);
+    //Navigator.pushReplacementNamed(context, home.currentPage);
   }
 
   SnackBar _getSnackBar(Text message) {
@@ -102,7 +108,7 @@ class _PetFormWidgetState extends State<PetFormWidget> {
                     if (_formKey.currentState!.validate()) {
                       final newPet =
                           Pet(null, _nameController.text, _selectedBreed);
-                      _createPet(newPet);
+                      _createPet(newPet, context);
                     }
                   },
                 ),

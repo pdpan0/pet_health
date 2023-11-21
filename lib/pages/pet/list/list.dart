@@ -3,7 +3,7 @@ import 'package:pet_health/models/pet.dart';
 
 import '../../../dao/pet_dao.dart';
 import '../../../services/pet.service.dart';
-import '../create/create.i18n.dart';
+import './list.i18n.dart';
 
 class PetsListWidget extends StatefulWidget {
   const PetsListWidget({super.key});
@@ -41,7 +41,7 @@ class _PetsListWidgetState extends State<PetsListWidget> {
     if (dao != null) {
       dao!.deletePet(pet);
       ScaffoldMessenger.of(context)
-          .showSnackBar(_getSnackBar(Text(createWithSuccess.i18n)));
+          .showSnackBar(_getSnackBar(Text(removeWithSuccess.i18n)));
       _findAllPets();
     }
   }
@@ -66,8 +66,7 @@ class _PetsListWidgetState extends State<PetsListWidget> {
       child: ListTile(
         leading: Text(pet.id != null ? pet.id!.toString() : ""),
         title: Text(pet.name),
-        subtitle: Text(pet.name),
-        trailing: const Icon(Icons.arrow_right_alt_outlined),
+        subtitle: Text(pet.breed),
         onTap: () {
           Navigator.pushNamed(context, pet.id?.toString() ?? "");
         },

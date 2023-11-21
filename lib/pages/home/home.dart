@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/routes.dart';
 import '../../constants/supported_locales.dart';
 import '../../models/components/bottom_bar_item.dart';
+import '../../state/navigation.state.dart';
 import '../components/bottom_bar.dart';
 import '../landing/landing.dart';
 import '../pet/list/list.dart';
@@ -24,16 +26,13 @@ class _PetHealthAppState extends State<PetHealthApp> {
     const PetFormWidget(),
   ];
 
-  int _currentPage = 0;
   final _pets = <BottomBarItem>[
     BottomBarItem(Icons.pets),
     BottomBarItem(Icons.pets),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentPage = index;
-    });
+  void _onItemTapped(BuildContext context, int index) {
+    Provider.of<NavigationState>(context, listen: false).navigate(index);
   }
 
   @override
@@ -49,19 +48,20 @@ class _PetHealthAppState extends State<PetHealthApp> {
         petList: (context) => const PetsListWidget()
       },
       home: Scaffold(
-        body: _pages[_currentPage],
+        body: _pages[Provider.of<NavigationState>(context).currentPage],
         backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _onItemTapped(
-              2), // todo: vincular o indice as telas, deixando de ser posicional
+          onPressed: () => _onItemTapped(context, 2),
           backgroundColor: primary,
           child: const Icon(Icons.add, size: 25),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomBar(
-          activeIndex: _currentPage,
+          activeIndex: Provider.of<NavigationState>(context).currentPage,
           items: _pets,
-          onTap: _onItemTapped,
+          onTap: (index) {
+            _onItemTapped(context, index);
+          },
         ),
       ),
     );
